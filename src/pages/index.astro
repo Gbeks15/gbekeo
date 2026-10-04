@@ -1,17 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import Cover from '../components/Cover.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import { site, contactHref } from '../site.config';
 
 const all = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
-const solo = all.filter((p) => p.data.group === 'solo');
+const solo = all.filter((p) => p.data.group === 'solo' && p.data.status !== 'On hold');
+const onHold = all.filter((p) => p.data.group === 'solo' && p.data.status === 'On hold');
 const vista = all.filter((p) => p.data.group === 'vista');
-const hasPage = (p: (typeof all)[number]) => Boolean(p.body && p.body.trim());
-
-const log = (await getCollection('now')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 6);
-const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-const statusClass = (s?: string) => (s === 'Live' ? 'live' : s === 'Running' ? 'running' : '');
 ---
 <Base>
   <header class="hero">
@@ -20,7 +16,7 @@ const statusClass = (s?: string) => (s === 'Live' ? 'live' : s === 'Running' ? '
       <h1>{site.name}</h1>
       <p class="role">Product Manager. <span>AI Builder.</span></p>
       <p class="lede">
-        8+ years shipping products at Vista Global, the private aviation group behind VistaJet, now exploring a $10B+ IPO.
+        8+ years shipping products inside a $10B global aviation group.
         <em>Now I build my own. End to end.</em>
       </p>
       <div class="cta-row">
@@ -85,24 +81,7 @@ const statusClass = (s?: string) => (s === 'Live' ? 'live' : s === 'Running' ? '
         </div>
       </div>
       <div class="solo-grid">
-        {solo.map((p) => {
-          const Tag = hasPage(p) ? 'a' : 'div';
-          return (
-            <Tag class="card" href={hasPage(p) ? `/work/${p.id}/` : undefined}>
-              <div class="cover"><Cover title={p.data.title} cover={p.data.cover} stack={p.data.stack} slug={p.id} /></div>
-              <div class="card-body">
-                <div class="card-top">
-                  <span class="tag">{p.data.tagline}</span>
-                  {p.data.status && <span class={`status ${statusClass(p.data.status)}`}>{p.data.status}</span>}
-                </div>
-                <h3>{p.data.title}</h3>
-                <p>{p.data.summary}</p>
-                {p.data.metric && <span class="metric">{p.data.metric}</span>}
-                {hasPage(p) && <span class="card-go">read more →</span>}
-              </div>
-            </Tag>
-          );
-        })}
+        {solo.map((p) => <ProjectCard p={p} />)}
       </div>
     </div>
   </section>
@@ -129,14 +108,17 @@ const statusClass = (s?: string) => (s === 'Live' ? 'live' : s === 'Running' ? '
     </div>
   </section>
 
-  {log.length > 0 && (
+  {onHold.length > 0 && (
     <section class="block">
       <div class="wrap">
-        <p class="label">now building</p>
-        <div class="log">
-          {log.map((e) => (
-            <div class="log-item"><time>{fmt(e.data.date)}</time><b>{e.data.project}</b><span>{e.data.note}</span></div>
-          ))}
+        <div class="section-head">
+          <div>
+            <p class="label">on hold</p>
+            <h2>Paused, not forgotten.</h2>
+          </div>
+        </div>
+        <div class="hold-grid">
+          {onHold.map((p) => <ProjectCard p={p} />)}
         </div>
       </div>
     </section>

@@ -137,6 +137,8 @@ section.block { padding: 88px 0; border-top: 1px solid var(--line); }
 .solo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .solo-grid .card:first-child { grid-column: 1 / -1; }
 @media (max-width: 760px) { .solo-grid { grid-template-columns: 1fr; } }
+.hold-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+@media (max-width: 760px) { .hold-grid { grid-template-columns: 1fr; } }
 .card {
   display: flex; flex-direction: column;
   border: 1px solid var(--line); border-radius: 14px; background: var(--panel);
@@ -162,6 +164,8 @@ a.card:hover .card-go { color: var(--accent); }
 .status.live::before { background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2s infinite; }
 .status.running { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 35%, transparent); }
 .status.running::before { background: var(--amber); }
+.status.hold { color: var(--dim); border-color: var(--line); }
+.status.hold::before { background: var(--line-2); }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 
 /* Cover: screenshot or terminal fallback */

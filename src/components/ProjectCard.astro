@@ -1,0 +1,21 @@
+---
+import Cover from './Cover.astro';
+import { statusClass } from '../status';
+
+const { p } = Astro.props;
+const hasPage = Boolean(p.body && p.body.trim());
+const Tag = hasPage ? 'a' : 'div';
+---
+<Tag class="card" href={hasPage ? `/work/${p.id}/` : undefined}>
+  <div class="cover"><Cover title={p.data.title} cover={p.data.cover} stack={p.data.stack} slug={p.id} /></div>
+  <div class="card-body">
+    <div class="card-top">
+      <span class="tag">{p.data.tagline}</span>
+      {p.data.status && <span class={`status ${statusClass(p.data.status)}`}>{p.data.status}</span>}
+    </div>
+    <h3>{p.data.title}</h3>
+    <p>{p.data.summary}</p>
+    {p.data.metric && <span class="metric">{p.data.metric}</span>}
+    {hasPage && <span class="card-go">read more →</span>}
+  </div>
+</Tag>

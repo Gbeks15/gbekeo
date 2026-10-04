@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Cover from '../../components/Cover.astro';
 import { getCollection, render } from 'astro:content';
 import { contactHref } from '../../site.config';
+import { statusClass } from '../../status';
 
 export async function getStaticPaths() {
   const all = (await getCollection('projects', ({ data }) => !data.draft))
@@ -14,7 +15,6 @@ export async function getStaticPaths() {
 const { project, next } = Astro.props;
 const { Content } = await render(project);
 const d = project.data;
-const statusClass = d.status === 'Live' ? 'live' : d.status === 'Running' ? 'running' : '';
 ---
 <Base title={d.title} description={d.summary}>
   <header class="p-hero">
@@ -24,7 +24,7 @@ const statusClass = d.status === 'Live' ? 'live' : d.status === 'Running' ? 'run
       <h1>{d.title}</h1>
       <p class="summary">{d.summary}</p>
       <div class="p-meta">
-        {d.status && <span class={`status ${statusClass}`}>{d.status}</span>}
+        {d.status && <span class={`status ${statusClass(d.status)}`}>{d.status}</span>}
         {d.link && <a class="btn primary" href={d.link.url} target="_blank" rel="noopener">{d.link.label} ↗</a>}
       </div>
     </div>

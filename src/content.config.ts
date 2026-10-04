@@ -12,7 +12,7 @@ const projects = defineCollection({
     summary: z.string(),
     // 'solo' = Built solo, 'vista' = Shipped at Vista
     group: z.enum(['solo', 'vista']),
-    status: z.enum(['Live', 'Running', 'In progress', 'Shipped']).optional(),
+    status: z.enum(['Live', 'Running', 'In progress', 'Shipped', 'On hold']).optional(),
     // Lower number shows first
     order: z.number().default(100),
     metric: z.string().optional(),
