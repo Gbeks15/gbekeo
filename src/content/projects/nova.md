@@ -7,6 +7,13 @@ status: Live
 order: 2
 metric: Live in production, placing trades on a demo account
 stack: [Python, FastAPI, Docker, Claude API, VPS]
+cover: /screens/nova-overview.webp
+coverCaption: Overview. Live in production, trading a demo account.
+screens:
+  - { src: /screens/nova-insights.webp, caption: "Insights. Nova reviews its own results and flags what to change." }
+  - { src: /screens/nova-brain.webp, caption: "Brain. How the AI's grade compares with the rules checklist, and whether its confidence holds up." }
+  - { src: /screens/nova-analytics.webp, caption: "Analytics. Cumulative R and win rates by instrument, session, grade and direction." }
+  - { src: /screens/nova-risk-gate.webp, caption: "Risk gate. Four checks every trade has to pass before it's placed." }
 ---
 
 ## The problem

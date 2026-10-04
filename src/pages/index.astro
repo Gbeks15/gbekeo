@@ -11,18 +11,21 @@ const vista = all.filter((p) => p.data.group === 'vista');
 ---
 <Base>
   <header class="hero">
-    <div class="wrap">
-      <p class="label">product manager / ai builder / dubai</p>
-      <h1>{site.name}</h1>
-      <p class="role">Product Manager. <span>AI Builder.</span></p>
-      <p class="lede">
-        8+ years shipping products inside a $10B global aviation group.
-        <em>Now I build my own. End to end.</em>
-      </p>
-      <div class="cta-row">
-        <a href="#built" class="btn primary">See what I've built ↓</a>
-        <a href={contactHref} class="btn">Let's talk</a>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="label">product manager / ai builder / dubai</p>
+        <h1>{site.name}</h1>
+        <p class="role">Product Manager. <span>AI Builder.</span></p>
+        <p class="lede">
+          8+ years shipping products inside a $10B global aviation group.
+          <em>Now I build my own. End to end.</em>
+        </p>
+        <div class="cta-row">
+          <a href="#built" class="btn primary">See what I've built ↓</a>
+          <a href={contactHref} class="btn">Let's talk</a>
+        </div>
       </div>
+      <img class="hero-photo" src="/img/gbeke.jpg" alt="Gbeke Odubanjo" width="640" height="640" />
     </div>
   </header>
 

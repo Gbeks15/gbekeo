@@ -7,7 +7,9 @@ status: Live
 order: 1
 metric: 1,000+ trades synced and reviewed
 stack: [React, Vite, Tailwind, FastAPI, PostgreSQL, Redis, Celery, Claude API, TradingView, Docker, Traefik]
-link: { label: Try the demo, url: "https://rifttradejournal.com" }
+links:
+  - { label: Visit RIFT, url: "https://www.rifttradejournal.com/" }
+  - { label: Try the live demo, url: "https://demo.rifttradejournal.com/dashboard", card: Live demo }
 ---
 
 ## The problem

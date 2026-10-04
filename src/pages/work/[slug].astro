@@ -25,14 +25,17 @@ const d = project.data;
       <p class="summary">{d.summary}</p>
       <div class="p-meta">
         {d.status && <span class={`status ${statusClass(d.status)}`}>{d.status}</span>}
-        {d.link && <a class="btn primary" href={d.link.url} target="_blank" rel="noopener">{d.link.label} ↗</a>}
+        {d.links.map((l, i) => <a class={`btn${i === 0 ? ' primary' : ''}`} href={l.url} target="_blank" rel="noopener">{l.label} ↗</a>)}
       </div>
     </div>
   </header>
 
   <div class="wrap">
     {d.cover ? (
-      <figure class="p-shot" style="margin:0 0 16px"><img src={d.cover} alt={`${d.title} screenshot`} /></figure>
+      <figure class="p-shot" style="margin:0 0 16px">
+        <img src={d.cover} alt={d.coverCaption ?? `${d.title} screenshot`} />
+        {d.coverCaption && <figcaption>{d.coverCaption}</figcaption>}
+      </figure>
     ) : (
       <div class="p-cover"><Cover title={d.title} stack={d.stack} slug={project.id} /></div>
     )}

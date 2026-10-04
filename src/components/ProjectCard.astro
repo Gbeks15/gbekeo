@@ -3,19 +3,24 @@ import Cover from './Cover.astro';
 import { statusClass } from '../status';
 
 const { p } = Astro.props;
-const hasPage = Boolean(p.body && p.body.trim());
-const Tag = hasPage ? 'a' : 'div';
+const href = p.body && p.body.trim() ? `/work/${p.id}/` : undefined;
+const cardLinks = p.data.links.filter((l) => l.card);
 ---
-<Tag class="card" href={hasPage ? `/work/${p.id}/` : undefined}>
+<div class={`card${href ? ' linked' : ''}`}>
   <div class="cover"><Cover title={p.data.title} cover={p.data.cover} stack={p.data.stack} slug={p.id} /></div>
   <div class="card-body">
     <div class="card-top">
       <span class="tag">{p.data.tagline}</span>
       {p.data.status && <span class={`status ${statusClass(p.data.status)}`}>{p.data.status}</span>}
     </div>
-    <h3>{p.data.title}</h3>
+    <h3>{href ? <a class="card-link" href={href}>{p.data.title}</a> : p.data.title}</h3>
     <p>{p.data.summary}</p>
     {p.data.metric && <span class="metric">{p.data.metric}</span>}
-    {hasPage && <span class="card-go">read more →</span>}
+    {(href || cardLinks.length > 0) && (
+      <div class="card-foot">
+        {href && <span class="card-go">read more →</span>}
+        {cardLinks.map((l) => <a class="card-ext" href={l.url} target="_blank" rel="noopener">{l.card} ↗</a>)}
+      </div>
+    )}
   </div>
-</Tag>
+</div>
