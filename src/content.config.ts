@@ -22,6 +22,8 @@ const projects = defineCollection({
     // Shown under the cover on the project page
     coverCaption: z.string().optional(),
     screens: z.array(z.object({ src: z.string(), caption: z.string().optional() })).default([]),
+    // Small note under the screenshots on the project page
+    screensNote: z.string().optional(),
     // Buttons on the project page. The first is the primary button.
     // Add `card: <label>` to also show that link on the home card.
     links: z.array(z.object({ label: z.string(), url: z.string(), card: z.string().optional() })).default([]),

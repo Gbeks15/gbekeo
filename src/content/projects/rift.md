@@ -7,6 +7,13 @@ status: Live
 order: 1
 metric: 1,000+ trades synced and reviewed
 stack: [React, Vite, Tailwind, FastAPI, PostgreSQL, Redis, Celery, Claude API, TradingView, Docker, Traefik]
+cover: /screens/rift-dashboard.webp
+coverCaption: "Dashboard. Mira's daily reflection, written from the trader's own journal and rules."
+screens:
+  - { src: /screens/rift-mira.webp, caption: "Ask Mira. Plain questions, answers grounded in your actual trades." }
+  - { src: /screens/rift-grading.webp, caption: "Graded setups. Every setup checked against the playbook before the trade." }
+  - { src: /screens/rift-analytics.webp, caption: "Analytics. Is your edge compounding, which months carry you, how deep the drawdowns go." }
+screensNote: All screenshots are from the public demo, using an invented trader.
 links:
   - { label: Visit RIFT, url: "https://www.rifttradejournal.com/" }
   - { label: Try the live demo, url: "https://demo.rifttradejournal.com/dashboard", card: Live demo }
