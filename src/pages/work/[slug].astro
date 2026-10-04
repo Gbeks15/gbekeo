@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import { getCollection, render } from 'astro:content';
+import { contactHref } from '../../site.config';
+
+export async function getStaticPaths() {
+  const all = (await getCollection('projects', ({ data }) => !data.draft))
+    .filter((p) => p.body && p.body.trim())
+    .sort((a, b) => (a.data.group === b.data.group ? a.data.order - b.data.order : a.data.group === 'solo' ? -1 : 1));
+  return all.map((p, i) => ({ params: { slug: p.id }, props: { project: p, next: all[(i + 1) % all.length] } }));
+}
+
+const { project, next } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+const statusClass = d.status === 'Live' ? 'live' : d.status === 'Running' ? 'running' : '';
+---
+<Base title={d.title} description={d.summary}>
+  <header class="p-hero">
+    <div class="wrap">
+      <a href="/#built" class="back">← all work</a>
+      {d.tagline && <p class="tagline">{d.tagline}</p>}
+      <h1>{d.title}</h1>
+      <p class="summary">{d.summary}</p>
+      <div class="p-meta">
+        {d.status && <span class={`status ${statusClass}`}>{d.status}</span>}
+        {d.link && <a class="btn primary" href={d.link.url} target="_blank" rel="noopener">{d.link.label} ↗</a>}
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    {d.cover ? (
+      <figure class="p-shot" style="margin:0 0 16px"><img src={d.cover} alt={`${d.title} screenshot`} /></figure>
+    ) : (
+      <div class="p-cover"><Cover title={d.title} stack={d.stack} slug={project.id} /></div>
+    )}
+    {d.screens.map((s) => (
+      <figure class="p-shot" style="margin:0 0 16px">
+        <img src={s.src} alt={s.caption ?? d.title} loading="lazy" />
+        {s.caption && <figcaption>{s.caption}</figcaption>}
+      </figure>
+    ))}
+
+    <div class="p-layout">
+      <article class="prose"><Content /></article>
+      <aside class="side">
+        {d.metric && (<div><h4>Outcome</h4><div class="metric-big">{d.metric}</div></div>)}
+        {d.stack.length > 0 && (<div><h4>Stack</h4><div class="chips">{d.stack.map((s) => <span class="chip">{s}</span>)}</div></div>)}
+        <div><h4>Want something like this?</h4><a href={contactHref} class="btn small primary">Let's talk</a></div>
+      </aside>
+    </div>
+  </div>
+
+  {next && next.id !== project.id && (
+    <section class="next">
+      <div class="wrap"><a href={`/work/${next.id}/`}>{next.data.title}<span>next project →</span></a></div>
+    </section>
+  )}
+</Base>

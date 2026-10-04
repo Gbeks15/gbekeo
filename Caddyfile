@@ -1,0 +1,24 @@
+# SITE_ADDRESS defaults to :80 (plain HTTP inside Docker, for use behind Traefik).
+# In standalone mode it's set to "gbekeo.com, www.gbekeo.com" and Caddy handles HTTPS itself.
+{$SITE_ADDRESS::80} {
+	root * {$SITE_ROOT:/srv}
+	encode zstd gzip
+
+	@www host www.gbekeo.com
+	redir @www https://gbekeo.com{uri} permanent
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+	}
+	header /_astro/* Cache-Control "public, max-age=31536000, immutable"
+
+	try_files {path} {path}/ {path}/index.html
+	file_server
+
+	handle_errors {
+		rewrite * /404.html
+		file_server
+	}
+}

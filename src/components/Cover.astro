@@ -1,0 +1,19 @@
+---
+// Shows the project screenshot if there is one.
+// If not, shows a terminal-style card built from the project's stack.
+interface Props { title: string; cover?: string; stack: string[]; slug: string; }
+const { title, cover, stack, slug } = Astro.props;
+const shown = stack.slice(0, 6);
+---
+{cover ? (
+  <img src={cover} alt={`${title} screenshot`} loading="lazy" />
+) : (
+  <div class="term" aria-hidden="true">
+    <div class="term-bar"><i></i><i></i><i></i></div>
+    <div class="term-body">
+      <div><span class="c">$</span> <span class="k">deploy</span> {slug}</div>
+      {shown.map((s) => <div><span class="d">  ✓</span> {s}</div>)}
+      <div><span class="c">●</span> <span class="k">running</span></div>
+    </div>
+  </div>
+)}

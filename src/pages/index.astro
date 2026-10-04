@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+import { getCollection } from 'astro:content';
+import { site, contactHref } from '../site.config';
+
+const all = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const solo = all.filter((p) => p.data.group === 'solo');
+const vista = all.filter((p) => p.data.group === 'vista');
+const hasPage = (p: (typeof all)[number]) => Boolean(p.body && p.body.trim());
+
+const log = (await getCollection('now')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 6);
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+const statusClass = (s?: string) => (s === 'Live' ? 'live' : s === 'Running' ? 'running' : '');
+---
+<Base>
+  <header class="hero">
+    <div class="wrap">
+      <p class="label">product manager / builder / dubai</p>
+      <h1>{site.name}</h1>
+      <p class="role">Product Manager. <span>Builder.</span></p>
+      <p class="lede">
+        8+ years shipping products inside a $2.5B global aviation group.
+        <em>Now I build my own. End to end.</em>
+      </p>
+      <div class="cta-row">
+        <a href="#built" class="btn primary">See what I've built ↓</a>
+        <a href={contactHref} class="btn">Let's talk</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="block intro">
+    <div class="wrap">
+      <p class="label">about</p>
+      <p><strong>I've spent my career turning messy problems into products people actually use.</strong> Across aviation, compliance, fintech and AI.</p>
+      <p>I've sat with engineers, UX/UI designers, compliance teams and the C-suite. I know how each of them thinks, and what it takes to get them building the same thing.</p>
+      <p class="kicker">These days I don't just write the spec.<br /><span>I build the thing.</span></p>
+    </div>
+  </section>
+
+  <section class="block" id="think">
+    <div class="wrap think">
+      <div>
+        <p class="label">how i think</p>
+        <h2>Every product starts with a problem.</h2>
+        <p class="big">Get that wrong and nothing else matters.</p>
+      </div>
+      <div>
+        <p>So before anyone talks features, I want to know:</p>
+        <ul class="qs">
+          <li><span>01</span>What's actually broken?</li>
+          <li><span>02</span>Who feels it most?</li>
+          <li><span>03</span>What changes for them when it's fixed?</li>
+        </ul>
+        <p>If I can't answer those, we're not ready to build.</p>
+        <p>Once I can, I move fast. Prototype, test, ship, learn. Then go again.</p>
+        <p>I don't measure a product by whether it launched. I measure it by what it changed. Hours saved. Revenue unlocked. Risk removed. People who use it every day without being told to.</p>
+        <p class="closing">That's the part I love. Taking something that frustrates people daily and making it just....work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <p class="label">by the numbers</p>
+      <div class="numbers">
+        <div><b>117 hrs</b><span>a week of manual work removed by an automated sales quoting product</span></div>
+        <div><b>$1.2M</b><span>a month in revenue running through that product</span></div>
+        <div><b>€20M</b><span>of regulatory exposure covered by sanctions screening I launched</span></div>
+        <div><b>1,000+</b><span>trades synced and reviewed live in RIFT</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="built">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="label">built solo</p>
+          <h2>Things I've built myself.</h2>
+          <p>Idea, product, design, code, infrastructure. All live or running.</p>
+        </div>
+      </div>
+      <div class="solo-grid">
+        {solo.map((p) => {
+          const Tag = hasPage(p) ? 'a' : 'div';
+          return (
+            <Tag class="card" href={hasPage(p) ? `/work/${p.id}/` : undefined}>
+              <div class="cover"><Cover title={p.data.title} cover={p.data.cover} stack={p.data.stack} slug={p.id} /></div>
+              <div class="card-body">
+                <div class="card-top">
+                  <span class="tag">{p.data.tagline}</span>
+                  {p.data.status && <span class={`status ${statusClass(p.data.status)}`}>{p.data.status}</span>}
+                </div>
+                <h3>{p.data.title}</h3>
+                <p>{p.data.summary}</p>
+                {p.data.metric && <span class="metric">{p.data.metric}</span>}
+                {hasPage(p) && <span class="card-go">read more →</span>}
+              </div>
+            </Tag>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="label">shipped at vista</p>
+          <h2>Products at scale.</h2>
+          <p>Eight-plus years at Vista Global, the group behind VistaJet. Real users, real regulators, real money.</p>
+        </div>
+      </div>
+      <div class="vista">
+        {vista.map((p, i) => (
+          <div class="vista-row">
+            <span class="n">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.summary}</p>
+            <span class="m">{p.data.metric ?? ''}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {log.length > 0 && (
+    <section class="block">
+      <div class="wrap">
+        <p class="label">now building</p>
+        <div class="log">
+          {log.map((e) => (
+            <div class="log-item"><time>{fmt(e.data.date)}</time><b>{e.data.project}</b><span>{e.data.note}</span></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="block contact" id="contact">
+    <div class="wrap">
+      <p class="label">contact</p>
+      <h2>Got a problem worth solving?<span>I'd love to hear about it.</span></h2>
+      <div class="cta-row">
+        <a href={contactHref} class="btn primary">Let's talk</a>
+        <a href={site.linkedin} class="btn" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href={site.cv} class="btn" target="_blank" rel="noopener">Download CV</a>
+      </div>
+    </div>
+  </section>
+</Base>

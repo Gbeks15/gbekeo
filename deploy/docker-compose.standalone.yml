@@ -1,0 +1,20 @@
+# Option B: nothing else on the VPS is using ports 80 and 443.
+# Caddy serves the site AND gets the HTTPS certificate on its own.
+
+services:
+  gbekeo:
+    build: ..
+    container_name: gbekeo
+    restart: unless-stopped
+    environment:
+      SITE_ADDRESS: "gbekeo.com, www.gbekeo.com"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

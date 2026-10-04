@@ -1,0 +1,26 @@
+# Option A: your VPS already runs Traefik (like RIFT).
+# The site joins Traefik's network and Traefik handles HTTPS.
+#
+# Check two things on the VPS first:
+#   docker network ls                 -> the network Traefik uses (set TRAEFIK_NETWORK)
+#   your Traefik config               -> the certresolver name (set CERT_RESOLVER)
+
+services:
+  gbekeo:
+    build: ..
+    container_name: gbekeo
+    restart: unless-stopped
+    networks: [traefik]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:-traefik}
+      - traefik.http.routers.gbekeo.rule=Host(`gbekeo.com`) || Host(`www.gbekeo.com`)
+      - traefik.http.routers.gbekeo.entrypoints=${TRAEFIK_ENTRYPOINT:-websecure}
+      - traefik.http.routers.gbekeo.tls=true
+      - traefik.http.routers.gbekeo.tls.certresolver=${CERT_RESOLVER:-letsencrypt}
+      - traefik.http.services.gbekeo.loadbalancer.server.port=80
+
+networks:
+  traefik:
+    external: true
+    name: ${TRAEFIK_NETWORK:-traefik}

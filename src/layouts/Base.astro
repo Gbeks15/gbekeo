@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import { site, contactHref } from '../site.config';
+
+interface Props { title?: string; description?: string; }
+const { title, description = '8+ years shipping products inside a $2.5B global aviation group. Now I build my own, end to end.' } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Product Manager. Builder.`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0b0d" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <a href="/" class="brand"><span class="prompt">~/</span>gbekeo<span class="cursor"></span></a>
+        <div class="nav-links">
+          <a href="/#built" class="hide-sm">Work</a>
+          <a href="/#think" class="hide-sm">How I think</a>
+          <a href={site.cv} target="_blank" rel="noopener">CV</a>
+          <a href={contactHref} class="btn small primary">Let's talk</a>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {site.name} · {site.location}</span>
+        <span>
+          <a href={`mailto:${site.email}`}>Email</a> ·
+          <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a> ·
+          <a href={site.cv} target="_blank" rel="noopener">CV</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
