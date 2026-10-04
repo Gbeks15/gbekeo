@@ -1,11 +1,11 @@
 ---
 title: Nova
 tagline: Autonomous AI trading agent
-summary: An autonomous AI trading agent. It scores setups, manages its own risk and logs every decision it makes.
+summary: An autonomous AI trading agent, live in production. It scores setups, places trades, manages its own risk and logs every decision it makes.
 group: solo
-status: Running
+status: Live
 order: 2
-metric: Every decision logged and auditable
+metric: Live in production, placing trades on a demo account
 stack: [Python, FastAPI, Docker, Claude API, VPS]
 ---
 
@@ -38,3 +38,7 @@ Every call Nova makes is recorded with its reasoning, so I can review it the sam
 ## My role
 
 Designed, built and deployed solo. Execution logic, risk management, dashboards, infrastructure.
+
+## Where it is now
+
+Live in production, placing trades on a demo account.

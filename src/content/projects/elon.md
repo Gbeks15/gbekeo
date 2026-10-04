@@ -11,10 +11,11 @@ stack: [Python, n8n, Claude API, ChatGPT API, Telegram, Instagram, Google Drive]
 
 ## The problem
 
-Small service businesses run on people doing everything by hand.
+Running a small business is extremely hands on, and it's time consuming.
+
 Answering enquiries. Juggling bookings. Posting content. Chasing the numbers at the end of the month.
 
-None of it is hard. All of it takes time away from the actual work.
+Being stuck in the day to day manual tasks takes time away from the high level strategy that actually grows the business.
 
 ## What I built
 

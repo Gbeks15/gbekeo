@@ -258,3 +258,4 @@ footer a:hover { color: var(--text); }
   .solo-grid .card:last-child:nth-child(even) { grid-column: 1 / -1; flex-direction: row; }
   .solo-grid .card:last-child:nth-child(even) .cover { width: 42%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--line); min-height: 220px; }
 }
+.think .big-lead { color: var(--text); font-size: 20px; line-height: 1.5; margin-bottom: 18px; }

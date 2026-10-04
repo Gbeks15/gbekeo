@@ -5,6 +5,8 @@ summary: A Raspberry Pi mirror that talks back. Voice assistant, smart home cont
 group: solo
 status: Running
 order: 4
+# On hold. Change to false to show it again.
+draft: true
 stack: [Raspberry Pi 5, MagicMirror², OpenAI API, Python]
 ---
 
