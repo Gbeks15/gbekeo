@@ -3,8 +3,8 @@ import '../styles/global.css';
 import { site, contactHref } from '../site.config';
 
 interface Props { title?: string; description?: string; }
-const { title, description = 'Product Manager and AI builder. 8+ years shipping products inside a $10B global aviation group. Now I build my own, end to end.' } = Astro.props;
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Product Manager. AI Builder.`;
+const { title, description = 'Senior Product Manager who builds AI-native products. 8+ years shipping products inside a $10B global aviation group. Now I build my own, end to end.' } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Senior Product Manager. AI Builder.`;
 ---
 <!doctype html>
 <html lang="en">
@@ -21,7 +21,7 @@ const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Product 
     <meta property="og:image" content="https://gbekeo.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Gbeke Odubanjo. Product Manager. AI Builder." />
+    <meta property="og:image:alt" content="Gbeke Odubanjo. Senior Product Manager. AI Builder." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://gbekeo.com/og-image.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -36,7 +36,7 @@ const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Product 
         <div class="nav-links">
           <a href="/#built" class="hide-sm">Work</a>
           <a href="/#think" class="hide-sm">How I think</a>
-          <a href={site.cv} target="_blank" rel="noopener">CV</a>
+          <a href={site.cv} download="Gbeke Odubanjo - Senior Product Manager CV.pdf" target="_blank" rel="noopener">CV</a>
           <a href={contactHref} class="btn small primary">Let's talk</a>
         </div>
       </div>
@@ -50,7 +50,7 @@ const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Product 
         <span>
           <a href={`mailto:${site.email}`}>Email</a> ·
           <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a> ·
-          <a href={site.cv} target="_blank" rel="noopener">CV</a>
+          <a href={site.cv} download="Gbeke Odubanjo - Senior Product Manager CV.pdf" target="_blank" rel="noopener">CV</a>
         </span>
       </div>
     </footer>

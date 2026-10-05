@@ -1,6 +1,8 @@
 # gbekeo.com
 
-Gbeke's portfolio site. Positions him as a Product Manager and AI builder: 8+ years shipping products at Vista Global, plus his own AI products built end to end.
+Gbeke's portfolio site. Positions him as a Senior Product Manager who builds AI-native products: 8+ years shipping products at Vista Global, plus his own AI products built end to end.
+
+Title in use: "Senior Product Manager. AI Builder." The CV, LinkedIn and site titles must stay in sync. If one changes, update the others (site: `src/site.config.ts` role, home hero and label, `Base.astro` default title, description and og:image alt, `public/og-image.png`).
 
 ## How the site works
 - Astro static site. Built in Docker, served by Caddy, routed by Traefik (host network mode) on this VPS.
@@ -11,6 +13,7 @@ Gbeke's portfolio site. Positions him as a Product Manager and AI builder: 8+ ye
 - Screenshots go in `public/screens/` and are referenced as `/screens/name.png` in `cover:` or `screens:`.
 - "Now building" log: one small file per update in `src/content/now/`.
 - Contact details, CV and booking link: `src/site.config.ts`.
+- CV lives at `public/files/Gbeke-Odubanjo-CV.pdf`. Replace that file to update it (keep the filename so the URL stays stable). CV links carry a `download="Gbeke Odubanjo - Senior Product Manager CV.pdf"` attribute.
 - Home page copy: `src/pages/index.astro`.
 
 ## Deploying

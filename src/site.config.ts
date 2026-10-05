@@ -1,7 +1,7 @@
 // Your details, in one place. Change these and the whole site updates.
 export const site = {
   name: 'Gbeke Odubanjo',
-  role: 'Product Manager. AI Builder.',
+  role: 'Senior Product Manager. AI Builder.',
   email: 'gbekeodubanjo@gmail.com',
   linkedin: 'https://www.linkedin.com/in/gbeke-odubanjo-77376696/',
   cv: '/files/Gbeke-Odubanjo-CV.pdf',
